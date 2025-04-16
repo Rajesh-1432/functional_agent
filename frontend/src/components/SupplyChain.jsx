@@ -16,11 +16,8 @@ const SupplyChain = () => {
         try {
             const response = await axios.get(
                 'https://services.odata.org/v4/northwind/northwind.svc/Orders?$top=10',
-                {
-                    headers: { Accept: 'application/json' }
-                }
+                { headers: { Accept: 'application/json' } }
             );
-
             const orders = response.data.value;
             setTableData(orders);
         } catch (error) {
@@ -42,53 +39,50 @@ const SupplyChain = () => {
     return (
         <div className="flex flex-col h-full w-full">
             <div className="flex-1 flex flex-col overflow-hidden">
-                <div className="p-6 overflow-y-auto flex-1">
-                    <div className="space-y-3">
-                        {messages.map((msg, index) => (
-                            <div
-                                key={index}
-                                className={`p-3 rounded-lg max-w-2xl ${msg.sender === 'bot'
-                                    ? 'bg-blue-200 text-left'
-                                    : 'bg-green-200 self-end text-right ml-auto'
-                                    }`}
-                            >
-                                {msg.text}
-                            </div>
-                        ))}
+                <div className="p-6 overflow-y-auto flex-1 space-y-4">
+                    {messages.map((msg, index) => (
+                        <div
+                            key={index}
+                            className={`p-3 rounded-lg max-w-2xl text-base font-semibold ${msg.sender === 'bot'
+                                ? ' text-left text-blue-900'
+                                : ' text-left text-gray-800 font-bold'
+                                }`}
+                        >
+                            {msg.text}
+                        </div>
+                    ))}
 
-                        {tableData.length > 0 && (
-                            <div className="overflow-auto border rounded-lg">
-                                <table className="min-w-full table-auto border-collapse border border-gray-300 text-sm">
-                                    <thead className="bg-blue-900 text-white">
-                                        <tr>
+                    {tableData.length > 0 && (
+                        <div className="overflow-auto border rounded-lg shadow">
+                            <table className="min-w-full table-auto border-collapse border border-gray-300 text-sm">
+                                <thead className="bg-blue-900 text-white">
+                                    <tr>
+                                        {Object.keys(tableData[0]).map((key) => (
+                                            <th key={key} className="border px-4 py-2 text-left">
+                                                {key}
+                                            </th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {tableData.map((row, rowIndex) => (
+                                        <tr key={rowIndex} className="even:bg-gray-100">
                                             {Object.keys(tableData[0]).map((key) => (
-                                                <th key={key} className="border px-4 py-2 text-left">
-                                                    {key}
-                                                </th>
+                                                <td key={key} className="border px-4 py-2">
+                                                    {row[key] !== null ? row[key].toString() : '-'}
+                                                </td>
                                             ))}
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {tableData.map((row, rowIndex) => (
-                                            <tr key={rowIndex} className="even:bg-gray-100">
-                                                {Object.keys(tableData[0]).map((key) => (
-                                                    <td key={key} className="border px-4 py-2">
-                                                        {row[key] !== null ? row[key].toString() : '-'}
-                                                    </td>
-                                                ))}
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
-
-                        <div ref={messagesEndRef} />
-                    </div>
-
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                    <div ref={messagesEndRef} />
                 </div>
 
-                <div className="border-t p-4 bg-white">
+                {/* Input fixed to bottom */}
+                <div className="border-t p-4 bg-white sticky bottom-0">
                     <div className="flex gap-2">
                         <input
                             type="text"

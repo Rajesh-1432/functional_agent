@@ -6,4 +6,4 @@ services:
       context: ./fun_agent_ui
     container_name: fun_agent_ui
     ports:
-      - 3000:3000
+      - 3002:3002

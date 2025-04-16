@@ -18,7 +18,6 @@ const Layout = () => {
                 {/* Navbar */}
                 <header className="bg-white shadow p-4 flex justify-between items-center">
                     <h2 className="text-xl font-semibold text-gray-800">Supply Chain</h2>
-                    <div className="text-sm text-gray-600">User Name</div>
                 </header>
 
                 {/* Page Content */}
