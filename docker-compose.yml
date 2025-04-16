@@ -3,7 +3,7 @@ version: '3'
 services:
   frontend:
     build:
-      context: ./fun_agent_ui
+      context: ./frontend
     container_name: fun_agent_ui
     ports:
       - 3002:3002
